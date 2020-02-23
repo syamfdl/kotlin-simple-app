@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main"
+    app:startDestination="@id/firstFragment">
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="me.syamfdl.simpleapp.FirstFragment"
+        android:label="0086" >
+        <action
+            android:id="@+id/action_firstFragment_to_persegiFragment"
+            app:destination="@id/persegiFragment" />
+        <action
+            android:id="@+id/action_firstFragment_to_segitigaFragment"
+            app:destination="@id/segitigaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="me.syamfdl.simpleapp.AboutFragment"
+        android:label="About" />
+    <fragment
+        android:id="@+id/persegiFragment"
+        android:name="me.syamfdl.simpleapp.PersegiFragment"
+        android:label="Persegi Panjang" />
+    <fragment
+        android:id="@+id/segitigaFragment"
+        android:name="me.syamfdl.simpleapp.SegitigaFragment"
+        android:label="Segitiga Siku-Siku" />
+</navigation>
