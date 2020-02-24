@@ -20,36 +20,40 @@ import kotlin.math.min
  */
 class PersegiFragment : Fragment() {
 
+    var luasPersegi = 0
+    var kelilingPersegi = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentPersegiBinding>(inflater, R.layout.fragment_persegi, container, false)
 
+        if (savedInstanceState != null) {
+            // Get all the game state information from the bundle, set it
+            luasPersegi = savedInstanceState.getInt("luas")
+            kelilingPersegi = savedInstanceState.getInt("keliling")
+        }
 
+        binding.luasp = luasPersegi
+        binding.kelilingp = kelilingPersegi
 
-        binding.tvLuas.setVisibility(View.GONE)
-        binding.tvKeliling.setVisibility(View.GONE)
-        binding.btnShare.setVisibility(View.GONE)
 
         binding.btnHitung.setOnClickListener {
 
             var panjangPersegi = etPanjang.text.toString().toDouble()
             var lebarPersegi = etLebar.text.toString().toDouble()
 
-            var luasPersegi = panjangPersegi * lebarPersegi
-            var kelilingPersegi = 2*(panjangPersegi + lebarPersegi)
+            luasPersegi = (panjangPersegi * lebarPersegi).toInt()
+            kelilingPersegi = (2*(panjangPersegi + lebarPersegi)).toInt()
 
-            binding.tvLuas.setVisibility(View.VISIBLE)
-            binding.tvKeliling.setVisibility(View.VISIBLE)
-            binding.btnShare.setVisibility(View.VISIBLE)
+            binding.luasp = luasPersegi
+            binding.kelilingp = kelilingPersegi
 
-            tvLuas.text = luasPersegi.toString().trim()
+        }
 
-            tvKeliling.text = kelilingPersegi.toString().trim()
-
+        binding.btnShare.setOnClickListener {
             var message = tvLuas.text.toString().trim()
-
             sendEmail(recipient = "syamfdl.lvlup@gmail.com", subject = "nilai", message = message)
         }
 
@@ -75,6 +79,12 @@ class PersegiFragment : Fragment() {
             Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
         }
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt("luas", luasPersegi)
+        outState.putInt("keliling", kelilingPersegi)
+        super.onSaveInstanceState(outState)
     }
 
 
